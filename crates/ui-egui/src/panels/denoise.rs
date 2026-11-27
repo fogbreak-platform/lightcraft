@@ -700,7 +700,7 @@ pub fn model_dialog(app: &mut LightcraftApp, ui: &mut egui::Ui, t: &Tokens, info
         ui.label(RichText::new(tr("This file cannot be used yet")).font(t.semibold(13.5)).color(t.caution));
         ui.add(
             egui::Label::new(
-                RichText::new(sentence(tr(info["reason"].as_str().unwrap_or("It is not a denoise model LightCraft understands"))))
+                RichText::new(sentence(tr(info["reason"].as_str().unwrap_or("It is not a denoise model Fogbreak Light understands"))))
                     .color(t.text_label),
             )
             .wrap(),
@@ -723,7 +723,7 @@ pub fn model_dialog(app: &mut LightcraftApp, ui: &mut egui::Ui, t: &Tokens, info
         ui.add(
             egui::Label::new(
                 RichText::new(tr_format!(
-                    "Downloads from {host}. Once it has arrived and checked out, LightCraft installs it, {after}.",
+                    "Downloads from {host}. Once it has arrived and checked out, Fogbreak Light installs it, {after}.",
                     host = host,
                     after = tr(after)
                 ))

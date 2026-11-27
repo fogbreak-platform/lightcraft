@@ -86,7 +86,7 @@ fn lossy_source(raw: &RawImage, long_edge: Option<u32>) -> Result<RawImage> {
 
 /// Software tag of the DNGs this writer makes. A bare "LightCraft" marks older files, whose CFAPattern is anchored at
 /// the sensor origin instead of the ActiveArea (the reader keeps their original reading).
-pub const SOFTWARE: &str = "LightCraft DNG 2";
+pub const SOFTWARE: &str = "Fogbreak Light DNG 2";
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct DngWriteOptions {
@@ -149,7 +149,7 @@ pub fn write_dng(raw: &RawImage, opts: &DngWriteOptions) -> Result<Vec<u8>> {
         model: raw.metadata.model.as_deref(),
         unique_model: None,
         cinema: &cinema,
-        unknown_camera_model: Some("LightCraft"),
+        unknown_camera_model: Some("Fogbreak Light"),
     };
     let compression = match opts.compression {
         DngCompression::Uncompressed | DngCompression::LossyJpeg { .. } => craft_raw::DngCompression::Uncompressed,

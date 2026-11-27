@@ -389,7 +389,7 @@ impl DirLock {
             .map_err(|e| format!("could not create {}: {e}", path.display()))?;
         match file.try_lock() {
             Ok(()) => Ok(DirLock { file }),
-            Err(std::fs::TryLockError::WouldBlock) => Err("the lens database is already downloading (in another LightCraft window)".into()),
+            Err(std::fs::TryLockError::WouldBlock) => Err("the lens database is already downloading (in another Fogbreak Light window)".into()),
             Err(std::fs::TryLockError::Error(e)) => Err(format!("could not lock {}: {e}", path.display())),
         }
     }
@@ -411,7 +411,7 @@ fn fetch_all(dir: &Path, mirrors: &[String], files: &[Pin], shared: &Shared) -> 
     .map_err(|e| match e {
         lightcraft_fetch::DownloadError::AllMirrorsFailed { errors, .. } => {
             let detail: String = errors.join("; ").chars().take(300).collect();
-            format!("could not download the lens database ({detail}): check the internet connection; LightCraft tries again next time it starts")
+            format!("could not download the lens database ({detail}): check the internet connection; Fogbreak Light tries again next time it starts")
         }
         other => other.to_string(),
     })?;
@@ -421,9 +421,9 @@ fn fetch_all(dir: &Path, mirrors: &[String], files: &[Pin], shared: &Shared) -> 
     remove_stale(&staging, files, |p| std::fs::remove_file(p))?;
     let readme = format!(
         "lensfun lens database (data/db), commit {COMMIT}
-from https://github.com/lensfun/lensfun, downloaded by LightCraft.
+from https://github.com/lensfun/lensfun, downloaded by Fogbreak Light.
          Licence: Creative Commons Attribution-ShareAlike 3.0 (https://creativecommons.org/licenses/by-sa/3.0/), by the lensfun contributors.
-         Data only, read by LightCraft at run time; not part of LightCraft.
+         Data only, read by Fogbreak Light at run time; not part of Fogbreak Light.
 "
     );
     std::fs::write(staging.join(MARKER), readme).map_err(|e| format!("could not write {}: {e}", staging.join(MARKER).display()))?;

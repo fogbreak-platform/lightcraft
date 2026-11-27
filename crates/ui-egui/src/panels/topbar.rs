@@ -279,7 +279,7 @@ fn unsaved_tip(n: usize, e: &str) -> String {
     let s = crate::i18n::plural_s(n);
     let it = if n == 1 { "it" } else { "them" };
     crate::i18n::tr_format!(
-        "{n} change{} saved in memory but not written to disk: {e}\nLightCraft retries automatically; quitting now would lose {}.",
+        "{n} change{} saved in memory but not written to disk: {e}\nFogbreak Light retries automatically; quitting now would lose {}.",
         s,
         it,
         e = e,

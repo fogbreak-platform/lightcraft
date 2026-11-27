@@ -160,7 +160,7 @@ impl OriginalGuard {
             let same = if hard_links {
                 same_file_strict(p, target).map_err(|e| {
                     format!(
-                        "{}: LightCraft cannot tell whether this is {what} in the library ({e}) and never writes over an original (choose another folder or file name)",
+                        "{}: Fogbreak Light cannot tell whether this is {what} in the library ({e}) and never writes over an original (choose another folder or file name)",
                         target.display()
                     )
                 })?
@@ -169,7 +169,7 @@ impl OriginalGuard {
             };
             if same {
                 return Err(format!(
-                    "{} is {what} in the library: LightCraft never writes over an original (choose another folder or file name)",
+                    "{} is {what} in the library: Fogbreak Light never writes over an original (choose another folder or file name)",
                     target.display()
                 ));
             }

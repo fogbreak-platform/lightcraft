@@ -407,7 +407,7 @@ async fn boot(opts: Options, bridge: Option<crate::host::Bridge>) -> Boot {
         if opts.reset {
             // everything this site keeps in the browser, photos included: never without asking
             let ok = safety::confirm(
-                "?reset deletes the LightCraft library stored in this browser, including every imported photo. \
+                "?reset deletes the Fogbreak Light library stored in this browser, including every imported photo. \
                  This can't be undone. Delete it?",
             );
             if ok {
@@ -450,7 +450,7 @@ async fn boot(opts: Options, bridge: Option<crate::host::Bridge>) -> Boot {
         crate::backend::request_persistence(|granted| {
             if !granted {
                 notice(
-                    "This browser may delete LightCraft's library when it runs short of space (persistent storage wasn't granted). \
+                    "This browser may delete Fogbreak Light's library when it runs short of space (persistent storage wasn't granted). \
                      Keep your original photos elsewhere and use File → Back Up Library… now and then.",
                 );
             }
@@ -586,7 +586,7 @@ impl WebApp {
         }
         if backend.is_some() {
             notice(
-                "LightCraft in the browser is experimental. Your library is kept in this browser's storage: keep your original photos \
+                "Fogbreak Light in the browser is experimental. Your library is kept in this browser's storage: keep your original photos \
                  elsewhere and back up with File → Back Up Library….",
             );
         }
@@ -635,7 +635,7 @@ impl WebApp {
             // hear the page from now on, and tell it the app is listening
             b.listen(cc.egui_ctx.clone());
             if !b.post(&Outgoing::Ready) {
-                log::warn!("lightcraft: the page framing LightCraft could not be told the app is ready");
+                log::warn!("lightcraft: the page framing Fogbreak Light could not be told the app is ready");
             }
         }
         let origin = lightcraft_ui_egui::monotonic_ms();
@@ -991,11 +991,11 @@ pub fn start(chinese_font: Vec<u8>) {
         // one tab per library: two would each keep their own copy and overwrite each other's saves
         if opts.store != "memory" && safety::acquire_tab_lock().await == Some(false) {
             safety::show_blocking(
-                "LightCraft is already open in another tab or window of this browser.\n\n\
+                "Fogbreak Light is already open in another tab or window of this browser.\n\n\
                  Switch to that tab, or close it and reload this page. (Two tabs would overwrite each other's changes.)",
             );
             if let Some(b) = &bridge {
-                b.post(&Outgoing::Failed("LightCraft is already open in another tab or window of this browser".into()));
+                b.post(&Outgoing::Failed("Fogbreak Light is already open in another tab or window of this browser".into()));
             }
             return;
         }
@@ -1018,8 +1018,8 @@ pub fn start(chinese_font: Vec<u8>) {
                 fix_text_field_box_sizing();
             }
             Err(e) => {
-                log::error!("LightCraft failed to start: {e:?}");
-                set_status(&format!("LightCraft failed to start: {e:?}"));
+                log::error!("Fogbreak Light failed to start: {e:?}");
+                set_status(&format!("Fogbreak Light failed to start: {e:?}"));
                 if let Some(b) = &bridge {
                     b.post(&Outgoing::Failed(format!("{e:?}")));
                 }

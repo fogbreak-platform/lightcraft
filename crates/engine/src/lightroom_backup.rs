@@ -161,7 +161,7 @@ fn extract_inner(zip: &Path, root: &Path, cancel: &AtomicBool, mut on_chunk: imp
     let mut archive = open_archive(zip)?;
     let (index, entry_name, entry_size) = catalog_entry(&mut archive)?;
     if entry_size > MAX_CATALOG_BYTES {
-        return Err(format!("the catalog in this backup unpacks to {} GB, more than LightCraft reads", entry_size >> 30));
+        return Err(format!("the catalog in this backup unpacks to {} GB, more than Fogbreak Light reads", entry_size >> 30));
     }
     std::fs::create_dir_all(root).map_err(|e| format!("{}: {e}", root.display()))?;
     check_space(root, entry_size, crate::disk_space::read(root).map(|space| space.available))?;
@@ -396,7 +396,7 @@ pub(crate) mod tests {
         z[at..at + 8].copy_from_slice(&(1u64 << 40).to_le_bytes());
         std::fs::write(dir.join("x.zip"), &z).unwrap();
         let err = extract(&dir.join("x.zip"), &dir.join("tmp"), &AtomicBool::new(false)).unwrap_err();
-        assert!(err.contains("more than LightCraft reads"), "{err}");
+        assert!(err.contains("more than Fogbreak Light reads"), "{err}");
         std::fs::remove_dir_all(&dir).unwrap();
     }
 

@@ -186,7 +186,7 @@ impl LightcraftApp {
                 self.toast_for(
                     ctx,
                     crate::i18n::tr_format!(
-                        "The XMP sidecars of {n} photos couldn't be written (is their folder offline?). LightCraft keeps trying.",
+                        "The XMP sidecars of {n} photos couldn't be written (is their folder offline?). Fogbreak Light keeps trying.",
                         n = waiting
                     ),
                     8.0,

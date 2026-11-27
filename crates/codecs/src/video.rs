@@ -199,7 +199,7 @@ impl<W: Write + Seek> Mp4Writer<W> {
         opts.compatible_brands.push(*b"av01");
         let mut inner = craft_media::isobmff::Mp4Writer::new(w, opts).map_err(media_err)?;
         let mut cfg = TrackConfig::new(av1_sample_entry(Av1Config::default(), width, height), timescale);
-        cfg.handler_name = Some("LightCraft video".into());
+        cfg.handler_name = Some("Fogbreak Light video".into());
         let track = inner.add_track(cfg).map_err(media_err)?;
         Ok(Mp4Writer { inner, track, width, height, periods: 0, config: None })
     }
@@ -291,7 +291,7 @@ impl<W: Write + Seek> WebmWriter<W> {
             spec.codec_private = config;
             spec.default_duration_ns = Some(1_000_000_000 / u64::from(self.fps));
             spec.video_size = Some((self.width, self.height));
-            let opts = MuxOptions { doc_type: "webm".into(), cluster_duration_ns: 0, writing_app: "LightCraft".into(), ..Default::default() };
+            let opts = MuxOptions { doc_type: "webm".into(), cluster_duration_ns: 0, writing_app: "Fogbreak Light".into(), ..Default::default() };
             let mkv = MkvWriter::new(w, vec![spec], opts).map_err(media_err)?;
             self.state = Some(WebmState::Active(Box::new(mkv)));
         }

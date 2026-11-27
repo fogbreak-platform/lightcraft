@@ -613,7 +613,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "AI Mask Settings",
             [],
             None,
-            "{runOn?: auto | cpu} → {runOn} — where SAM 3 runs (Settings ▸ Performance ▸ AI masks): `auto` (the default) the GPU when there is one (Metal on macOS; elsewhere the parts LightCraft's wgpu kernels run, while GPU rendering is allowed, and the rest on the CPU: `segment.model.status` → `backend` says which), `cpu` all of it on the CPU on every platform (for a GPU that can't run it). Local inference only: a remote worker (`LIGHTCRAFT_SAM3_REMOTE`) runs on its Mac's Metal device either way. Kept with the app's settings; a loaded model moves at its next request",
+            "{runOn?: auto | cpu} → {runOn} — where SAM 3 runs (Settings ▸ Performance ▸ AI masks): `auto` (the default) the GPU when there is one (Metal on macOS; elsewhere the parts Fogbreak Light's wgpu kernels run, while GPU rendering is allowed, and the rest on the CPU: `segment.model.status` → `backend` says which), `cpu` all of it on the CPU on every platform (for a GPU that can't run it). Local inference only: a remote worker (`LIGHTCRAFT_SAM3_REMOTE`) runs on its Mac's Metal device either way. Kept with the app's settings; a loaded model moves at its next request",
             super::always,
             |s, p| {
                 let c = "segment.settings";
@@ -629,7 +629,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Download AI Mask Model",
             [],
             None,
-            "{acknowledged: true} — download the SAM 3 model (about 3.4 GB, Meta's SAM License, not LightCraft's) in the background, from the configured mirrors; only after the user agreed to it. Watch segment.model.status; segment.model.cancel stops it (it resumes later) → {started, installed, downloading}",
+            "{acknowledged: true} — download the SAM 3 model (about 3.4 GB, Meta's SAM License, not Fogbreak Light's) in the background, from the configured mirrors; only after the user agreed to it. Watch segment.model.status; segment.model.cancel stops it (it resumes later) → {started, installed, downloading}",
             super::always,
             |s, p| {
                 let c = "segment.model.download";

@@ -74,7 +74,7 @@ pub(crate) const WELCOME_START: &str = "Get Started";
 /// not bind.
 pub(crate) const WELCOME_PAGES: [(&str, &str, &str); 6] = [
     (
-        "Welcome to LightCraft",
+        "Welcome to Fogbreak Light",
         "A fast, non-destructive photo library and raw developer: your originals stay untouched, and every edit can be revisited or reset.",
         "Bring photos in with File › Import Photos…",
     ),
@@ -100,7 +100,7 @@ pub(crate) const WELCOME_PAGES: [(&str, &str, &str); 6] = [
     ),
     (
         "Put agents to work",
-        "Everything in LightCraft is a command, so AI agents can drive the running app over MCP: culling, editing, exporting on your word.",
+        "Everything in Fogbreak Light is a command, so AI agents can drive the running app over MCP: culling, editing, exporting on your word.",
         "Start the app with --control 7980 (or LIGHTCRAFT_CONTROL_PORT), then lightcraft-cli mcp --connect attaches one to it.",
     ),
 ];
@@ -498,7 +498,7 @@ fn dialog_title(app: &LightcraftApp, dlg: &Dialog) -> String {
         // (nothing to download from in this build: the dialog explains the manual install)
         Dialog::SamModel { .. } if sam_by_hand(&app.session.segmenter) => "Install the SAM 3 Model",
         Dialog::SamModel { .. } => "Download the SAM 3 Model?",
-        Dialog::About => "About LightCraft",
+        Dialog::About => "About Fogbreak Light",
         Dialog::Shortcuts => "Keyboard Shortcuts",
         Dialog::ViewOptions => "View Options",
     }
@@ -1832,7 +1832,7 @@ fn export_apple_photos_rows(ui: &mut egui::Ui, t: &Tokens, opts: &mut ExportOpti
             )
         });
         ui.label(
-            egui::RichText::new(crate::i18n::tr("The first time, macOS asks whether LightCraft may control Photos.")).size(11.0).color(t.text_dim),
+            egui::RichText::new(crate::i18n::tr("The first time, macOS asks whether Fogbreak Light may control Photos.")).size(11.0).color(t.text_dim),
         );
     }
 }
@@ -2038,7 +2038,7 @@ fn move_photos_body(ui: &mut egui::Ui, t: &Tokens, dlg: &mut Dialog) {
 /// The body of the LightroomCatalog dialog.
 fn lightroom_catalog_body(app: &mut LightcraftApp, ui: &mut egui::Ui, t: &Tokens, dlg: &mut Dialog) {
     let Dialog::LightroomCatalog { folder, catalog } = dlg else { return };
-    ui.label(crate::i18n::tr("This is a Lightroom catalog, not a LightCraft library. Import it into a LightCraft library instead?"));
+    ui.label(crate::i18n::tr("This is a Lightroom catalog, not a Fogbreak Light library. Import it into a Fogbreak Light library instead?"));
     ui.label(egui::RichText::new(catalog.as_deref().unwrap_or(folder.as_str())).color(t.text_dim));
     // (the import then asks where the catalog goes, unless Settings says to merge, #2672)
     let asks = app.ui.settings.lightroom_import == crate::state::LightroomImport::Ask && app.session.library.as_ref().is_some_and(|l| l.on_disk);

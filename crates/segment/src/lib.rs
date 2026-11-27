@@ -654,7 +654,7 @@ fn hugging_face_format(weights: &weights::Weights) -> Result<()> {
     if !weights.contains(first) && (weights.has_prefix("detector.backbone.") || weights.has_prefix("tracker.")) {
         return Err(Error::Model(format!(
             "{WEIGHTS_FILE} is Meta's original checkpoint (sam3.pt, or a sam3.safetensors conversion of it as on community mirrors); \
-             LightCraft needs the Hugging Face format: {WEIGHTS_FILE} from facebook/sam3"
+             Fogbreak Light needs the Hugging Face format: {WEIGHTS_FILE} from facebook/sam3"
         )));
     }
     Ok(())
@@ -804,7 +804,7 @@ mod tests {
 
     impl BackboneAccel for Closing {
         fn forward(&self, _: &[f32]) -> std::result::Result<Vec<f32>, String> {
-            if self.backbone { Err("LightCraft is closing".into()) } else { Ok(vec![0.0; FULL]) }
+            if self.backbone { Err("Fogbreak Light is closing".into()) } else { Ok(vec![0.0; FULL]) }
         }
         fn device(&self) -> String {
             "Fake GPU (Vulkan)".into()
@@ -816,7 +816,7 @@ mod tests {
             true
         }
         fn neck(&self, _: NeckKind, _: &[f32], _: usize) -> std::result::Result<Vec<Vec<f32>>, String> {
-            Err("LightCraft is closing".into())
+            Err("Fogbreak Light is closing".into())
         }
     }
 
@@ -825,7 +825,7 @@ mod tests {
         let dir = empty_model("closing");
         let m = Sam3::load_accelerated(&dir, Device::Cpu, with_closing(true)).unwrap();
         let e = m.encode(&[128; 4 * 3 * 3], 4, 3).err().unwrap();
-        assert!(e.to_string().contains("LightCraft is closing"), "{e}");
+        assert!(e.to_string().contains("Fogbreak Light is closing"), "{e}");
         assert!(m.backbone.get().is_none(), "the candle backbone was never loaded");
         assert!(m.accelerated());
         assert_eq!((m.backbone_device().as_str(), m.backbone_fallback()), ("Fake GPU (Vulkan)", None));

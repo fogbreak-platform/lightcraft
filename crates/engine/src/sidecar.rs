@@ -734,7 +734,7 @@ pub fn sidecar_packet_with(p: &Photo, cat: &lightcraft_catalog::Catalog, remove_
     // Names in `dc:subject`, paths in `lr:hierarchicalSubject` (`keywords::to_file`).
     let keywords = lightcraft_catalog::keywords::to_file(&p.meta.keywords);
     let meta = lightcraft_meta::Metadata {
-        software: Some("LightCraft".into()),
+        software: Some("Fogbreak Light".into()),
         title: nz(&p.meta.title),
         caption: nz(&p.meta.caption),
         alt_text: nz(&p.meta.alt_text),

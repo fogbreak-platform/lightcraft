@@ -24,8 +24,7 @@ fn main() {
 
 #[cfg(target_arch = "wasm32")]
 mod web {
-    use std::sync::Arc;
-    use std::sync::mpsc;
+    use std::sync::{Arc, Mutex, mpsc};
 
     use lightcraft_engine::Session;
     use lightcraft_ui_egui::{LightcraftApp, Services, control, pick};
@@ -39,6 +38,7 @@ mod web {
         app: LightcraftApp,
         bridge: host_bridge::SharedBridge,
         originals: Originals,
+        dropped_pending: Arc<Mutex<Vec<String>>>,
         last_dark: bool,
         last_dirty: Option<(bool, Option<u64>, Option<String>)>,
         ready_emitted: bool,
@@ -95,6 +95,7 @@ mod web {
             app,
             bridge,
             originals,
+            dropped_pending: Arc::new(Mutex::new(Vec::new())),
             last_dark: dark,
             last_dirty: None,
             ready_emitted: false,
@@ -219,20 +220,34 @@ mod web {
     impl FogbreakLightApp {
         fn enqueue_dropped_files(&mut self, ctx: &egui::Context) {
             let dropped = ctx.input(|i| i.raw.dropped_files.clone());
-            if dropped.is_empty() {
-                return;
-            }
-            let mut paths = Vec::new();
             for file in dropped {
-                let Some(bytes) = file.bytes.as_ref().map(|b| b.to_vec()) else {
-                    continue;
-                };
-                let name = if file.name.is_empty() { "dropped.png".to_string() } else { file.name };
-                let hash = content_hash(&bytes);
-                paths.push(self.originals.added(&name, &hash, Arc::from(bytes)));
+                let originals = self.originals.clone();
+                let pending = Arc::clone(&self.dropped_pending);
+                let ctx_c = ctx.clone();
+                let name = egui::DroppedFile::path(file.as_ref())
+                    .file_name()
+                    .and_then(|n| n.to_str())
+                    .filter(|s| !s.is_empty())
+                    .unwrap_or("dropped.png")
+                    .to_string();
+                wasm_bindgen_futures::spawn_local(async move {
+                    if let Ok(bytes) = egui::DroppedFile::bytes_async(file.as_ref()).await {
+                        let hash = content_hash(&bytes);
+                        let path = originals.added(&name, &hash, Arc::from(bytes));
+                        if let Ok(mut guard) = pending.lock() {
+                            guard.push(path);
+                        }
+                        ctx_c.request_repaint();
+                    }
+                });
             }
-            if !paths.is_empty() {
-                let _ = self.app.run("library.import", json!({ "paths": paths }));
+            let ready_paths = self
+                .dropped_pending
+                .lock()
+                .map(|mut guard| std::mem::take(&mut *guard))
+                .unwrap_or_default();
+            if !ready_paths.is_empty() {
+                let _ = self.app.run("library.import", json!({ "paths": ready_paths }));
                 ctx.request_repaint();
             }
         }

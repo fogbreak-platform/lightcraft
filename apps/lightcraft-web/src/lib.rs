@@ -35,9 +35,9 @@ pub mod wire;
 
 #[cfg(target_arch = "wasm32")]
 mod backend;
-#[cfg(target_arch = "wasm32")]
+#[cfg(all(target_arch = "wasm32", feature = "standalone-entry"))]
 mod safety;
-#[cfg(target_arch = "wasm32")]
+#[cfg(all(target_arch = "wasm32", feature = "standalone-entry"))]
 mod web;
-#[cfg(target_arch = "wasm32")]
+#[cfg(all(target_arch = "wasm32", feature = "standalone-entry"))]
 mod workers;

@@ -22,7 +22,7 @@ lightcraft-codecs = { workspace = true }
 lightcraft-engine = { workspace = true }
 lightcraft-raster = { workspace = true }
 lightcraft-ui-egui = { workspace = true }
-lightcraft-web = { path = "../apps/lightcraft-web" }
+lightcraft-web = { path = "../apps/lightcraft-web", default-features = false }
 eframe = { workspace = true, features = ["default_fonts", "glow"] }
 serde = { workspace = true }
 serde_json = { workspace = true }

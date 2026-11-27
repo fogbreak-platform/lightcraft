@@ -12,6 +12,10 @@ workspace = true
 [lib]
 crate-type = ["cdylib", "rlib"]
 
+[features]
+default = ["standalone-entry"]
+standalone-entry = []
+
 [dependencies]
 lightcraft-engine = { workspace = true }
 lightcraft-ui-egui = { workspace = true }

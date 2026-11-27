@@ -95,12 +95,20 @@ fn refresh_commands_inner(b: &mut HostBridge, app: &LightcraftApp) {
     }
 }
 
+pub fn find_canvas(doc: &web_sys::Document) -> Option<web_sys::HtmlCanvasElement> {
+    doc.query_selector("canvas[data-host=\"page\"][data-engine=\"fogbreak-light\"]")
+        .ok()
+        .flatten()
+        .or_else(|| doc.get_element_by_id(CANVAS_ID))
+        .and_then(|el| el.dyn_into::<web_sys::HtmlCanvasElement>().ok())
+}
+
 pub fn detect_rpc_key() -> String {
     let fallback = DEFAULT_HOST_KEY.to_string();
     let Some(doc) = web_sys::window().and_then(|w| w.document()) else {
         return fallback;
     };
-    if let Some(el) = doc.get_element_by_id(CANVAS_ID)
+    if let Some(el) = find_canvas(&doc)
         && let Some(key) = el.get_attribute("data-rpc-key")
     {
         let trimmed = key.trim();
@@ -551,8 +559,7 @@ pub fn encode_png_rgba(img: &Rgba8) -> Vec<u8> {
 
 fn capture_canvas_png() -> Result<Value, String> {
     let doc = web_sys::window().and_then(|w| w.document()).ok_or("document unavailable")?;
-    let el = doc.get_element_by_id(CANVAS_ID).ok_or("canvas element not found")?;
-    let canvas: web_sys::HtmlCanvasElement = el.dyn_into().map_err(|_| "element is not a canvas".to_string())?;
+    let canvas = find_canvas(&doc).ok_or("canvas element not found")?;
     let url = canvas.to_data_url_with_type("image/png").map_err(|_| "canvas capture failed".to_string())?;
     Ok(json!({
         "dataUrl": url,
@@ -688,7 +695,7 @@ fn emit_event(suffix: &str, detail: &Value) {
         return;
     };
     let _ = win.dispatch_event(&ev);
-    if let Some(canvas) = win.document().and_then(|d| d.get_element_by_id(CANVAS_ID)) {
+    if let Some(canvas) = win.document().and_then(|d| find_canvas(&d)) {
         let _ = canvas.dispatch_event(&ev);
     }
 }

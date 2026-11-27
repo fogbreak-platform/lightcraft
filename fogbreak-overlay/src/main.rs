@@ -46,8 +46,7 @@ mod web {
 
     pub async fn start() -> Result<(), String> {
         let doc = web_sys::window().and_then(|w| w.document()).ok_or("document unavailable")?;
-        let canvas_el = doc.get_element_by_id(host_bridge::CANVAS_ID).ok_or("canvas element not found")?;
-        let canvas: web_sys::HtmlCanvasElement = canvas_el.dyn_into().map_err(|_| "element is not a canvas".to_string())?;
+        let canvas = host_bridge::find_canvas(&doc).ok_or("canvas element not found")?;
 
         let dark = theme::initial_dark_mode();
         theme::sync_document_theme(dark);

@@ -86,7 +86,7 @@ pub(crate) fn check(app: &mut LightcraftApp) -> Result<Value, String> {
     {
         if crate::channel::is_nightly() {
             // Also keeps a command-palette or shortcut invocation from asking the stable feed.
-            return Err("LightCraft Nightly is updated by the ArtCraft Launcher".into());
+            return Err("Fogbreak Light Nightly is updated by the Fogbreak Launcher".into());
         }
         app.updates_rt.check_requested = true;
         if let Some(ctx) = &app.updates_rt.repaint {
@@ -160,7 +160,7 @@ pub(crate) fn show(app: &mut LightcraftApp, ctx: &egui::Context) {
     #[cfg(target_arch = "wasm32")]
     if app.updates_rt.manual_window_open {
         let mut open = true;
-        let shown = egui::Window::new(crate::i18n::tr("LightCraft Updates"))
+        let shown = egui::Window::new(crate::i18n::tr("Fogbreak Light Updates"))
             .open(&mut open)
             .collapsible(false)
             .resizable(false)
@@ -236,8 +236,8 @@ mod tests {
         let release = craft_update::Release {
             tag: "v99.0.0".into(),
             version: craft_update::parse_version("99.0.0"),
-            name: "LightCraft 99.0.0".into(),
-            html_url: "https://github.com/storytold/lightcraft/releases/tag/v99.0.0".into(),
+            name: "Fogbreak Light 99.0.0".into(),
+            html_url: "https://github.com/fogbreak-platform/fogbreak-light/releases/tag/v99.0.0".into(),
             ..Default::default()
         };
         // A missing pins file means stable releases, whatever the launcher on this machine chose.

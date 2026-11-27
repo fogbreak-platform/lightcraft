@@ -1,0 +1,5 @@
+[build]
+target = "index.html"
+dist = "../dist/fogbreak-web"
+public_url = "./"
+filehash = true

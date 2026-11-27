@@ -6,8 +6,8 @@ use std::process::Command;
 
 /// The name the UI asks for when it means PhotoCraft (`lightcraft_ui_egui::state::PHOTOCRAFT`).
 const PHOTOCRAFT: &str = lightcraft_ui_egui::state::PHOTOCRAFT;
-/// PhotoCraft's application id (Flatpak, desktop entry).
-const PHOTOCRAFT_ID: &str = "ai.storyteller.photocraft";
+/// External image editor id.
+const PHOTOCRAFT_ID: &str = "io.fogbreak.raster";
 
 /// How an editor is started.
 #[derive(Debug, PartialEq)]
@@ -120,7 +120,7 @@ fn launcher(app: &str) -> Result<Launcher, String> {
         return Ok(if cfg!(target_os = "macos") { Launcher::MacApp(app.to_string()) } else { Launcher::Program(PathBuf::from(app)) });
     }
     find_photocraft().ok_or_else(|| {
-        "PhotoCraft isn't installed. Get it from getartcraft.com/apps/photocraft, or give where it is in Settings → External Editing.".to_string()
+        "External editor is not installed. Give where it is in Settings → External Editing.".to_string()
     })
 }
 

@@ -7,11 +7,11 @@
 //! the installed artifact, not a window.
 
 /// Matches the `.desktop` file and hicolor icon name, so Wayland docks pick up the icon.
-pub const APP_ID: &str = "ai.storyteller.lightcraft";
+pub const APP_ID: &str = "io.fogbreak.light";
 /// The window/Wayland id and (on Windows) the AppUserModelID of the Nightly channel.
-pub const NIGHTLY_APP_ID: &str = "ai.storyteller.lightcraft.nightly-v1";
-pub const APP_NAME: &str = "LightCraft";
-pub const NIGHTLY_APP_NAME: &str = "LightCraft Nightly";
+pub const NIGHTLY_APP_ID: &str = "io.fogbreak.light.nightly-v1";
+pub const APP_NAME: &str = "Fogbreak Light";
+pub const NIGHTLY_APP_NAME: &str = "Fogbreak Light Nightly";
 
 /// Immutable startup identity. The desktop selects it before any UI/runtime service is created.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

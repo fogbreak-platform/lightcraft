@@ -1,0 +1,52 @@
+[package]
+name = "fogbreak-light"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Fogbreak Light — photo library and raw developer WebGL/WASM host"
+publish = false
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "fogbreak-light"
+path = "src/main.rs"
+
+[dependencies]
+egui = { workspace = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+lightcraft-catalog = { workspace = true }
+lightcraft-codecs = { workspace = true }
+lightcraft-engine = { workspace = true }
+lightcraft-raster = { workspace = true }
+lightcraft-ui-egui = { workspace = true }
+lightcraft-web = { path = "../apps/lightcraft-web" }
+eframe = { workspace = true, features = ["default_fonts", "glow"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+base64 = "0.23"
+rfd = { workspace = true }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = { workspace = true }
+js-sys = { workspace = true }
+web-sys = { workspace = true, features = [
+    "Blob",
+    "BlobPropertyBag",
+    "CustomEvent",
+    "CustomEventInit",
+    "Document",
+    "Element",
+    "Event",
+    "EventTarget",
+    "HtmlAnchorElement",
+    "HtmlCanvasElement",
+    "HtmlElement",
+    "Location",
+    "MediaQueryList",
+    "Url",
+    "UrlSearchParams",
+    "Window",
+] }

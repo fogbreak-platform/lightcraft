@@ -25,8 +25,6 @@ fn main() {
             std::process::exit(1);
         }
     };
-    println!("cargo:rerun-if-changed=../../assets/app-icon/lightcraft.ico");
-    println!("cargo:rerun-if-changed=../../assets/app-icon/lightcraft-nightly.ico");
     println!("cargo:rerun-if-env-changed=LIGHTCRAFT_REQUIRE_WINRES");
     println!("cargo:rerun-if-env-changed=LIGHTCRAFT_VERSION");
     println!("cargo:rerun-if-env-changed=LIGHTCRAFT_OVERRIDE_VERSION");
@@ -55,13 +53,12 @@ fn main() {
         return;
     }
     let mut res = winresource::WindowsResource::new();
-    res.set_icon(build_channel::windows_icon_path(nightly))
-        .set("ProductName", if nightly { "LightCraft Nightly" } else { "LightCraft" })
+    res.set("ProductName", if nightly { "Fogbreak Light Nightly" } else { "Fogbreak Light" })
         .set(
             "FileDescription",
-            if nightly { "LightCraft Nightly photo library and raw developer" } else { "LightCraft photo library and raw developer" },
+            if nightly { "Fogbreak Light Nightly photo library and raw developer" } else { "Fogbreak Light photo library and raw developer" },
         )
-        .set("LegalCopyright", "Copyright (c) the LightCraft authors. MIT OR Apache-2.0.")
+        .set("LegalCopyright", "Copyright (c) Fogbreak contributors. MIT OR Apache-2.0.")
         .set("OriginalFilename", "lightcraft.exe")
         .set("InternalName", "lightcraft");
     if nightly {

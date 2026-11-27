@@ -1,13 +1,13 @@
 [workspace]
 resolver = "3"
-members = ["crates/*", "apps/*", "xtask"]
+members = ["crates/*", "apps/*", "xtask", "fogbreak-overlay"]
 
 [workspace.package]
 version = "0.21.1"
 edition = "2024"
 license = "MIT OR Apache-2.0"
 rust-version = "1.95"
-repository = "https://github.com/storytold/lightcraft"
+repository = "https://github.com/fogbreak-platform/fogbreak-light"
 
 [workspace.dependencies]
 craft-cms-profile = { package = "craft-cms", git = "https://github.com/storytold/craft-libs", rev = "b2d2a1e948c43d95aa769d4f0a06fe6b869edc39" }
